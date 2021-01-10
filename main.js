@@ -2,11 +2,17 @@ var gameEngine = new GameEngine();
 
 var ASSET_MANAGER = new AssetManager();
 
+ASSET_MANAGER.queueDownload("./sprites/link.png");
+
 ASSET_MANAGER.downloadAll(function () {
-	var canvas = document.getElementById('gameWorld');
-	var ctx = canvas.getContext('2d');
+	PARAMS.BLOCKWIDTH = PARAMS.BITWIDTH * PARAMS.SCALE;
+
+	let canvas = document.getElementById('gameWorld');
+	let ctx = canvas.getContext('2d');
 
 	gameEngine.init(ctx);
+
+	gameEngine.addEntity(new SceneManager(gameEngine));
 
 	gameEngine.start();
 });

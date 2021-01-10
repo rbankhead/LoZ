@@ -5,11 +5,16 @@ class GameEngine {
         this.entities = [];
         this.showOutlines = false;
         this.ctx = null;
-        this.click = null;
         this.mouse = null;
         this.wheel = null;
         this.surfaceWidth = null;
         this.surfaceHeight = null;
+
+        this.left = false;
+        this.right = false;
+        this.up = false;
+        this.down = false;
+        this.click = false;
     };
 
     init(ctx) {
@@ -38,14 +43,77 @@ class GameEngine {
             return { x: x, y: y };
         }
 
+        this.ctx.canvas.addEventListener("keydown", function (e) {
+
+            switch (e.code) {
+                case "ArrowLeft":
+                case "KeyA":
+                    that.left = true;
+                    break;
+                case "ArrowRight":
+                case "KeyD":
+                    that.right = true;
+                    break;
+                case "ArrowUp":
+                case "KeyW":
+                    that.up = true;
+                    break;
+                case "ArrowDown":
+                case "KeyS":
+                    that.down = true;
+                    break;
+                case "KeyZ":
+                    that.B = true;
+                    break;
+                case "KeyX":
+                    that.A = true;
+                    break;
+            }
+        }, false);
+
+        this.ctx.canvas.addEventListener("keyup", function (e) {
+            console.log("up");
+            switch (e.code) {
+                case "ArrowLeft":
+                case "KeyA":
+                    that.left = false;
+                    break;
+                case "ArrowRight":
+                case "KeyD":
+                    that.right = false;
+                    break;
+                case "ArrowUp":
+                case "KeyW":
+                    that.up = false;
+                    break;
+                case "ArrowDown":
+                case "KeyS":
+                    that.down = false;
+                    break;
+                case "KeyZ":
+                    that.B = false;
+                    break;
+                case "KeyX":
+                    that.A = false;
+                    break;
+            }
+        }, false);
+
         this.ctx.canvas.addEventListener("mousemove", function (e) {
             //console.log(getXandY(e));
             that.mouse = getXandY(e);
         }, false);
 
-        this.ctx.canvas.addEventListener("click", function (e) {
+        this.ctx.canvas.addEventListener("mousedown", function (e) {
             //console.log(getXandY(e));
-            that.click = getXandY(e);
+            //that.click = getXandY(e);
+            that.click = true;
+        }, false);
+
+        this.ctx.canvas.addEventListener("mouseup", function (e) {
+            //console.log(getXandY(e));
+            //that.click = getXandY(e);
+            that.click = false;
         }, false);
 
         this.ctx.canvas.addEventListener("wheel", function (e) {
