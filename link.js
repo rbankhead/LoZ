@@ -79,8 +79,6 @@ class Link {
             switch (this.facing) {
                 case "left":
                     this.game.addEntity(new Sword(this.game, 24, 97, -11, 7));
-                    this.game.dungeon.x--;
-                    this.game.camera.x-=1.5;
                     break;
                 case "right":
                     this.game.addEntity(new Sword(this.game, 100, 97, 16, 7));
